@@ -92,3 +92,30 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     | TCP personalizado |    UDP    |         2049        | 0.0.0.0/0 |    NFS    |
 
 - Clicar em **Salvar regras**.
+
+### Criar Elastic File System:
+- Acesse o console AWS e entre no serviço de EFS.
+- No menu lateral esquerdo, clique em **Sistemas de arquivos**.
+- Depois clique no botão **Criar sistema de arquivos**.   
+
+    - #### Etapa 1 - Configurações do sistema de arquivos:
+
+        - Adicione um nome para o EFS.
+        - No campo **Virtual Private Cloud (VPC)** selecione a VPC que foi utilizada anteriormente na crianção da instância.
+        - Selecione a opção **personalizar**.
+        - Marque a opção **One zone** e selecione a zona de disponibilidade em que sua EC2 está criada.
+        - Em Gerenciamento de ciclo de vida, na opção **Transição para Achive** devemos mudar a configuração para **Nenhum**, pois o Archive não está disponível para sistemas de arquivos One Zone no momento dessa atividade.
+        - Clique em **Próximo**.
+
+    - #### Etapa 2 - Acesso à rede:
+        - No campo **Grupos de segurança** selecione o grupo de segurança que foi utilizado anteriormente na crianção da instância.
+        - Clique em **Próximo**.
+
+    - #### Etapa 3 - (opcional) Política do sistema de arquivos:
+        - Deixe tudo como padrão.
+        - Clique em **Próximo**.
+        
+    - #### Etapa 4 - Revisar e Criar:
+        - Revise e clique em **Criar** para finalizar.
+
+- Após criar, copie o DNS do seu sistema de arquivos.
