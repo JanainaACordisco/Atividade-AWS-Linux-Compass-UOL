@@ -24,3 +24,16 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - Dentro de Pares de chaves, clique no botão **Criar par de chaves**.
 - Nomeie sua chave, selecione o tipo de par de chaves como RSA e o formato da chave privada como .pem e então clique no botão **Criar par de chaves"**.
 - Salvar o arquivo .pem em uma pasta segura.
+
+### Criar instância EC2:
+- Acesse o console AWS e entre no servico EC2.
+- No menu lateral esquerdo, na seção de **Instâncias**, selecione **Instâncias**.
+- Dentro da seção de Instâncias clique no botão **Executar instância**.
+- Ao lado do campo de inserir nome, clique em **Adicionar mais tags**.
+- Crie e insira o valor para as chaves: **Name, Project e CostCenter**, selecionando **Intancias**, **Volumes** como tipos de recursos.
+- Selecione a AMI com sistema operacional Amazon Linux 2.
+- Selecione o tipo de instância como t3.small.
+- Selecione o par de chaves que foi criado anteriormente.
+- Selecione 16 GB de armazenamento gp2 (SSD).
+- Em configurações de rede, selecione Criar grupo de segurança, mantenha selecionado **Permitir tráfego SSH de** > **Qualquer lugar**.
+- Clicar em **Executar instância**.
