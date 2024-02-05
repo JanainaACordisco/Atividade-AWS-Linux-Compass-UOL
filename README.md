@@ -37,3 +37,11 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - Selecione 16 GB de armazenamento gp2 (SSD).
 - Em configurações de rede, selecione Criar grupo de segurança, mantenha selecionado **Permitir tráfego SSH de** > **Qualquer lugar**.
 - Clicar em **Executar instância**.
+
+### Gerar Elastic IP e anexar à instância EC2:
+- Acesse o console AWS e entre no servico EC2.
+- No menu lateral esquerdo, na seção de **Rede e segurança**, selecione **IPs elásticos**.
+- Clique no botão **Alocar endereço IP elástico**.
+- Mantenha as configuração padrão e clique no botão **Alocar**.
+- Depois de criado, selecione o IP alocado, clique no botão de **Ações** e então **Associar endereço IP elástico**. 
+- Selecione a instância EC2 que foi criada anteriormente e então clique em **Associar**.
