@@ -66,3 +66,29 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
     Alvo: Selecione o gateway da internet criado anteriormente.
     ```
 - Clique em **Salvar alterações**.
+
+### Liberar as portas de comunicação para acesso público:
+Liberar as portas de comunicação para acesso público: (22/TCP, 111/TCP e
+UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
+
+
+- Acesse o console AWS e entre no serviço de EC2.
+- No menu lateral esquerdo, na seção de **Rede e segurança**, selecione **Grupos de segurança**.
+- Selecione o grupo criado anteriormente junto com a instância.
+- Clique em **Regras de entrada** e e depois em **Editar regras de entrada**.
+
+    A regra de entrada (22/TCP) já foi configurada no momento da criação da instância, então adicione as demais: (111/TCP e UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
+
+- Configurar as seguintes regras:
+
+    | Tipo              | Protocolo | Intervalo de portas |   Origem  | Descrição |
+    |-------------------|:---------:|:-------------------:|:---------:|:---------:|
+    | SSH               |    TCP    |          22         | 0.0.0.0/0 |    SSH    |
+    | TCP personalizado |    TCP    |          80         | 0.0.0.0/0 |    HTTP   |
+    | TCP personalizado |    TCP    |         443         | 0.0.0.0/0 |   HTTPS   |
+    | TCP personalizado |    TCP    |         111         | 0.0.0.0/0 |    RPC    |
+    | TCP personalizado |    UDP    |         111         | 0.0.0.0/0 |    RPC    |
+    | TCP personalizado |    TCP    |         2049        | 0.0.0.0/0 |    NFS    |
+    | TCP personalizado |    UDP    |         2049        | 0.0.0.0/0 |    NFS    |
+
+- Clicar em **Salvar regras**.
