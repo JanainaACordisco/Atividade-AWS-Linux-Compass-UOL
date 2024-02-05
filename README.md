@@ -45,3 +45,11 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - Mantenha as configuração padrão e clique no botão **Alocar**.
 - Depois de criado, selecione o IP alocado, clique no botão de **Ações** e então **Associar endereço IP elástico**. 
 - Selecione a instância EC2 que foi criada anteriormente e então clique em **Associar**.
+
+### Criar e configurar Gateway da internet:
+- Acesse o console AWS e entre no serviço de VPC.
+- No menu lateral esquerdo, na seção de **Nuvem privada virtual**, selecione **Gateway da internet**.
+- Clique no botão **Criar gateway de internet**.
+- Defina um nome para o gateway e clique no botão **Criar gateway de internet**.
+- Selecione o gateway criado, clique no botão **Ações** e depois em **Associar à VPC**.
+- Selecione a VPC da instância EC2 criada anteriormente e clique em **Associar**.
