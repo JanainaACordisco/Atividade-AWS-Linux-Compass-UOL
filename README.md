@@ -53,3 +53,16 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - Defina um nome para o gateway e clique no botão **Criar gateway de internet**.
 - Selecione o gateway criado, clique no botão **Ações** e depois em **Associar à VPC**.
 - Selecione a VPC da instância EC2 criada anteriormente e clique em **Associar**.
+
+### Configurar Tabela de rotas:
+- Acesse o console AWS e entre no serviço de VPC.
+- No menu lateral esquerdo, na seção de **Nuvem privada virtual**, selecione **Tabela de rotas**.
+- Selecione a tabela de rotas da VPC da instância EC2 que foi criada anteriormente.
+- Clique no botão **Ações** e depois em **Editar rotas**.
+- Clique em **Adicionar rota**
+- Configure da seguinte forma: 
+    ```
+    Destino: 0.0.0.0/0 
+    Alvo: Selecione o gateway da internet criado anteriormente.
+    ```
+- Clique em **Salvar alterações**.
