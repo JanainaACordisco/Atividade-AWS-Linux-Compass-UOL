@@ -119,3 +119,57 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
         - Revise e clique em **Criar** para finalizar.
 
 - Após criar, copie o DNS do seu sistema de arquivos.
+
+### Montar sistema de arquivos do EFS:
+- Comece a configuração do NFS acessando sua máquina via SSH.
+- Instale o pacote necessário para o funcionamento do seu NFS com o comando:
+    ```
+    sudo yum install nfs-utils
+    ```
+- Será necessário criar um diretório para a montagem do EFS com o comando:
+    ```
+    sudo mkdir /efs
+    ```
+- Agora devemos fazer a montagem do NFS e existem duas formas de fazer isso: Manual e Automática.
+
+    - **Manual**: 
+        Dessa forma será necessário montar toda vez que a máquina for iniciada, usando o comando abaixo:
+        ```
+        sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-02d33e49911d03ca4.efs.us-east-1.amazonaws.com:/ efs
+        ```
+        Antes de confirmar o comando você deve substituir o **fs-02d33e49911d03ca4.efs.us-east-1.amazonaws.com** pelo DNS do EFS que foi criado anteriormente.
+
+    - **Automática**: 
+        Para esse tipo de montagem é necessário editar o arquivo **/etc/fstab**, para isso use o comando:
+        ```
+        sudo nano /etc/fstab
+        ```
+        Adicione o seguinte comando no arquivo **fstab**:
+        ```
+        file_system_id.efs.aws-region.amazonaws.com:/ mount_point nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0
+        ```
+        Faça as seguintes alterações:
+        - **file_system_id** deve ser substituído pelo DNS do sistema de arquivos que você está montando.
+        - **aws-region** deve ser substituído pela região da AWS que está configurada no sistema de arquivos, como us-east-1.
+        - **mount_point** deve ser substituído pelo ponto de montagem do sistema de arquivos, no meu caso /efs.
+        - Exemplo: ```fs-02d33e49911d03ca4.efs.us-east-1.amazonaws.com:/ /efs nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0```
+
+- Salve e feche o arquivo.
+ 
+- Reinicie a instância.
+    
+    Após a reinicialização, o sistema de arquivos do EFS estará montado no diretório **/efs** e estará disponível para uso na instância. 
+
+- Para verificar se o sistema de arquivos do EFS está realmente montado, execute o comando:
+    ```
+    df -h
+    ```
+    Este comando lista todos os sistemas de arquivos montados na instância, e se o EFS estiver montado corretamente, você verá a linha de saída que mostrará o sistema de arquivos do EFS e seus detalhes.
+
+### Criar um diretório dentro do filesystem do NFS com seu nome:
+- Execute o seguinte comando:
+    ```
+    sudo mkdir /efs/Seu_Nome
+    ```
+    - Substitua o a parte do comando **Seu_Nome** pelo seu próprio nome.
+    - Exemplo: ```sudo mkdir /efs/JanainaACordisco```
