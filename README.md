@@ -15,3 +15,12 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - O script deve conter data, hora, nome do serviço, status e mensagem personalizada de online ou offline;
 - O script deve gerar dois arquivos de saida: Um para o serviço online e um para o serviço offline;
 - Preparar a execução automatizada do script a cada 5 minutos;
+
+## Instruções de execução
+
+### Gerar chave pública para acesso ao ambiente:
+- Acesse o console AWS e entre no servico EC2.
+- No menu lateral esquerdo, na seção de **Rede e segurança**, selecione **Pares de chaves**.
+- Dentro de Pares de chaves, clique no botão **Criar par de chaves**.
+- Nomeie sua chave, selecione o tipo de par de chaves como RSA e o formato da chave privada como .pem e então clique no botão **Criar par de chaves"**.
+- Salvar o arquivo .pem em uma pasta segura.
