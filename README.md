@@ -331,3 +331,10 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     >/dev/null 2>&1 - Desativa a notificação do cron nessa tarefa.
     ```
 - Você pode verificar se o script está realmente automatizado fazendo a leitura dos arquivos de saida que foram gerados.
+
+## Referências
+- [Amazon Elastic Compute Cloud - Manual do usuário para instâncias do Linux](https://docs.aws.amazon.com/pt_br/AWSEC2/latest/UserGuide/concepts.html)
+- [Amazon Elastic File System - Guia do usuário](https://docs.aws.amazon.com/pt_br/efs/latest/ug/whatisefs.html)
+- [How to Install Apache Web Server on Amazon Linux 2](https://dev.to/mkabumattar/how-to-install-apache-web-server-on-amazon-linux-2-31l)
+- [Introdução ao Shell Script no Linux](https://www.devmedia.com.br/introducao-ao-shell-script-no-linux/25778)
+- [What are cron and crontab, and how do I use them?](https://kb.iu.edu/d/afiz)
