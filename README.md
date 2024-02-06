@@ -227,3 +227,81 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     - Exemplo:
         ``` 34.225.185.38```
 - Se conseguir visulizar o conteúdo do arquivo **index.html** no seu navegador, significa que seu Apache está configurado corretamente.
+
+### Criar um script que valide o status do Apache:
+- Vá até o diretório que foi criado dentro do seu filesystem, utilizando o comando:
+    ```
+    cd /efs/Seu_Nome
+    ```
+     - Substitua **Seu_Nome** pelo nome do diretório que você criou anteriormente com o seu nome.
+     - Exemplo: ```cd /efs/JanainaACordisco``` 
+
+- Lá dentro crie um arquivo que tenha extensão **.sh**, com o comando:
+    ```
+    sudo nano httpd_check.sh
+    ```
+- Dentro do arquivo **httpd_check.sh** cole o seguinte código:
+
+    ```
+    #!/bin/bash
+
+    # Define a variável de ambiente TZ para o fuso horário de "America/Sao_Paulo".
+    export TZ=America/Sao_Paulo
+
+    # Obter data e hora atual
+    date_hour=$(date '+%d-%m-%Y %H:%M:%S')
+    
+    # Verificar o status do serviço do httpd (Apache)
+    httpd_status=$(systemctl is-active httpd)
+
+    # Configurar o resultado da verificação
+    if [ "$httpd_status" == "active" ]; then
+        echo "O serviço httpd está ONLINE."
+        result="ONLINE"
+        message="O serviço httpd está ONLINE."
+
+        # Define o nome do arquivo de saída para o serviço online
+        output_file="httpd_online.txt"
+    else
+        echo "O serviço httpd está OFFLINE."
+        result="OFFLINE"
+        message="O serviço httpd está OFFLINE."
+
+        # Define o nome do arquivo de saída para o serviço offline
+        output_file="httpd_offline.txt"
+    fi
+
+    # Combinar todas informações
+    final_message="$date_hour - Serviço httpd - Status: $result - $message"
+
+    # Diretório no NFS
+    diretory_nfs="/efs/Seu_Nome"
+
+    # Cria o arquivo de resultado no diretório do NFS com as informações
+    echo "$final_message" > "$diretory_nfs/$output_file"
+
+    echo "Resultado da validação foi salvo em $diretory_nfs/$output_file."
+
+    ```
+- Deve-se substituir o diretório **/efs/Seu_Nome** pelo nome do diretório que você criou anteriormente com o seu nome.
+     - Exemplo: ```/efs/JanainaACordisco``` 
+
+- Salve o arquivo e adicione ao mesmo a permissão de execução usando o comando:
+    ```
+    sudo chmod +x httpd_check.sh
+    ```
+
+### Testar o script de validação:
+- Para fazer o teste, temos que parar e iniciar o serviço Apache, executando o script criado entre um status e outro para que ambos status possam ser registrados:
+- Execute o comando que interrompe o serviço do Apache:
+    ```
+    sudo systemctl stop httpd
+    ```
+- Para executar o script, use o comando estando dentro do diretório do arquivo **.sh** que foi criado.
+    ```
+    sudo ./httpd_check.sh
+    ```
+- Execute o comando que inicia o serviço do Apache:
+    ```
+    sudo systemctl start httpd.service
+    ```
