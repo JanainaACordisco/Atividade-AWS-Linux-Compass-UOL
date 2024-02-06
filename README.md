@@ -173,3 +173,57 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     ```
     - Substitua o a parte do comando **Seu_Nome** pelo seu próprio nome.
     - Exemplo: ```sudo mkdir /efs/JanainaACordisco```
+    
+### Configurar o servidor Apache:
+- Atualize os pacotes do sistema com o comando:
+    ```
+    sudo yum update -y
+    ```
+- Instale o Apache executando o comando:
+    ```
+    sudo yum install httpd -y
+    ```
+- Após a conclusão da instalação, inicie o serviço do Apache com o comando:
+    ```
+    sudo systemctl start httpd.service
+    ```
+- Utilize o comando para habilitar o serviço do Apache para inicialização automática:
+    ```
+    sudo systemctl enable httpd.service
+    ```
+- Verifique se o Apache está em execução utilizando o comando:
+    ```
+    sudo service httpd status
+    ```
+- Vá até o diretório padrão dos arquivos do Apache com o comando:
+    ```
+    cd /var/www/html
+    ```
+- Verifique se tem um arquivo **index.html** no diretório com o comando:
+    ```
+    ls
+    ```
+- Caso não tenha o arquivo **index.html** na pasta, você pode criá-lo usando o comando:
+    ```
+    sudo nano index.html
+    ```
+- Copie e cole o conteúdo abaixo para dentro do index.html e salve o arquivo.
+    ``` 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Apache</title>
+    </head>
+    <body>
+      <h1>Apache rodando com sucesso!</h1>
+    </body>
+    </html>
+    ```
+
+- Para verificar que o serviço Apache está rodando corretamente, você deverá colocar na barra de endereço do seu navegador o IP público atribuído à sua instância com o Elastic IP.
+    - Exemplo:
+        ``` 34.225.185.38```
+- Se conseguir visulizar o conteúdo do arquivo **index.html** no seu navegador, significa que seu Apache está configurado corretamente.
