@@ -305,3 +305,29 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     ```
     sudo systemctl start httpd.service
     ```
+ 
+### Automatizar a execução do script a cada 5 minutos:
+- Digite o comando abaixo para editar as tarefas cronjob:
+    ```
+    sudo crontab -e
+    ```
+- Adicione a seguinte linha para agendar a execução do script a cada 5 minutos:
+    ```
+    */5 * * * * /efs/Seu_Nome/httpd_check.sh >/dev/null 2>&1
+    ```
+- Deve-se substituir o diretório **/efs/Seu_Nome** pelo nome do diretório que você criou anteriormente com o seu nome.
+    - Exemplo: ```*/5 * * * * /efs/JanainaACordisco/httpd_check.sh >/dev/null 2>&1```   
+- Salve o arquivo.
+- Para verificar se o cronjob foi configurado corretamente, execute o seguinte comando:
+    ```
+    sudo crontab -l
+    ```
+
+    - #### Explicando a configuração: 
+    ```
+    * - Significa "qualquer valor".
+    */5 - Significa "a cada 5 minutos", pois a tarefa será executada quando o valor dos minutos for divisível por 5.
+    * * * * - Significa qualquer valor em hora, dia do mês, mês e dia da semana.
+    >/dev/null 2>&1 - Desativa a notificação do cron nessa tarefa.
+    ```
+- Você pode verificar se o script está realmente automatizado fazendo a leitura dos arquivos de saida que foram gerados.
