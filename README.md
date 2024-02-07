@@ -11,9 +11,9 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - Configurar o NFS;
 - Criar um diretório dentro do filesystem com seu nome;
 - Subir um servidor Apache (o Apache deve estar online e rodando);
-- Criar um script que valide se o serviço está online ou offline e que envie o resultado da validação para o diretorio do seu nfs;
+- Criar um script que valide se o serviço está online ou offline e que envie o resultado da validação para o diretório do seu nfs;
 - O script deve conter data, hora, nome do serviço, status e mensagem personalizada de online ou offline;
-- O script deve gerar dois arquivos de saida: Um para o serviço online e um para o serviço offline;
+- O script deve gerar dois arquivos de saída: Um para o serviço online e um para o serviço offline;
 - Preparar a execução automatizada do script a cada 5 minutos;
 
 ## Instruções de execução
@@ -28,9 +28,9 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 ### Criar instância EC2:
 - Acesse o console AWS e entre no servico EC2.
 - No menu lateral esquerdo, na seção de **Instâncias**, selecione **Instâncias**.
-- Dentro da seção de Instâncias clique no botão **Executar instância**.
+- Dentro da seção de instâncias clique no botão **Executar instância**.
 - Ao lado do campo de inserir nome, clique em **Adicionar mais tags**.
-- Crie e insira o valor para as chaves: **Name, Project e CostCenter**, selecionando **Intancias**, **Volumes** como tipos de recursos.
+- Crie e insira o valor para as chaves: **Name, Project e CostCenter**, selecionando **Instâncias**, **Volumes** como tipos de recursos.
 - Selecione a AMI com sistema operacional Amazon Linux 2.
 - Selecione o tipo de instância como t3.small.
 - Selecione o par de chaves que foi criado anteriormente.
@@ -42,7 +42,7 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - Acesse o console AWS e entre no servico EC2.
 - No menu lateral esquerdo, na seção de **Rede e segurança**, selecione **IPs elásticos**.
 - Clique no botão **Alocar endereço IP elástico**.
-- Mantenha as configuração padrão e clique no botão **Alocar**.
+- Mantenha as configurações como padrão e clique no botão **Alocar**.
 - Depois de criado, selecione o IP alocado, clique no botão de **Ações** e então **Associar endereço IP elástico**. 
 - Selecione a instância EC2 que foi criada anteriormente e então clique em **Associar**.
 
@@ -101,14 +101,14 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     - #### Etapa 1 - Configurações do sistema de arquivos:
 
         - Adicione um nome para o EFS.
-        - No campo **Virtual Private Cloud (VPC)** selecione a VPC que foi utilizada anteriormente na crianção da instância.
+        - No campo **Virtual Private Cloud (VPC)** selecione a VPC que foi utilizada anteriormente na criação da instância.
         - Selecione a opção **personalizar**.
         - Marque a opção **One zone** e selecione a zona de disponibilidade em que sua EC2 está criada.
         - Em Gerenciamento de ciclo de vida, na opção **Transição para Achive** devemos mudar a configuração para **Nenhum**, pois o Archive não está disponível para sistemas de arquivos One Zone no momento dessa atividade.
         - Clique em **Próximo**.
 
     - #### Etapa 2 - Acesso à rede:
-        - No campo **Grupos de segurança** selecione o grupo de segurança que foi utilizado anteriormente na crianção da instância.
+        - No campo **Grupos de segurança** selecione o grupo de segurança que foi utilizado anteriormente na criação da instância.
         - Clique em **Próximo**.
 
     - #### Etapa 3 - (opcional) Política do sistema de arquivos:
@@ -164,7 +164,7 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     ```
     df -h
     ```
-    Este comando lista todos os sistemas de arquivos montados na instância, e se o EFS estiver montado corretamente, você verá a linha de saída que mostrará o sistema de arquivos do EFS e seus detalhes.
+    Este comando lista tudo que está montado na instância, e se o EFS estiver montado corretamente, você verá a linha de saída que mostrará o sistema de arquivos do EFS e seus detalhes.
 
 ### Criar um diretório dentro do filesystem do NFS com seu nome:
 - Execute o seguinte comando:
@@ -223,7 +223,7 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     </html>
     ```
 
-- Para verificar que o serviço Apache está rodando corretamente, você deverá colocar na barra de endereço do seu navegador o IP público atribuído à sua instância com o Elastic IP.
+- Para verificar se o serviço Apache está rodando corretamente, você deverá colocar na barra de endereço do seu navegador o IP público atribuído à sua instância com o Elastic IP.
     - Exemplo:
         ``` 34.225.185.38```
 - Se conseguir visulizar o conteúdo do arquivo **index.html** no seu navegador, significa que seu Apache está configurado corretamente.
@@ -292,7 +292,7 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     ```
 
 ### Testar o script de validação:
-- Para fazer o teste, temos que parar e iniciar o serviço Apache, executando o script criado entre um status e outro para que ambos status possam ser registrados:
+- Para fazer o teste temos que parar e iniciar o serviço Apache, executando o script criado entre um status e outro para que ambos status possam ser registrados:
 - Execute o comando que interrompe o serviço do Apache:
     ```
     sudo systemctl stop httpd
@@ -307,7 +307,7 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     ```
  
 ### Automatizar a execução do script a cada 5 minutos:
-- Digite o comando abaixo para editar as tarefas cronjob:
+- Digite o comando abaixo para editar as tarefas do cronjob:
     ```
     sudo crontab -e
     ```
