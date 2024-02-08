@@ -57,7 +57,7 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 ### Configurar Tabela de rotas:
 - Acesse o console AWS e entre no serviço de VPC.
 - No menu lateral esquerdo, na seção de **Nuvem privada virtual**, selecione **Tabela de rotas**.
-- Selecione a tabela de rotas da VPC da instância EC2 que foi criada anteriormente.
+- Selecione a tabela de rotas da subnet em que a instância foi criada anteriormente.
 - Clique no botão **Ações** e depois em **Editar rotas**.
 - Clique em **Adicionar rota**
 - Configure da seguinte forma: 
@@ -68,28 +68,21 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - Clique em **Salvar alterações**.
 
 ### Liberar as portas de comunicação para acesso público:
-Liberar as portas de comunicação para acesso público: (22/TCP, 111/TCP e
-UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
-
-
 - Acesse o console AWS e entre no serviço de EC2.
 - No menu lateral esquerdo, na seção de **Rede e segurança**, selecione **Grupos de segurança**.
 - Selecione o grupo criado anteriormente junto com a instância.
 - Clique em **Regras de entrada** e e depois em **Editar regras de entrada**.
-
-    A regra de entrada (22/TCP) já foi configurada no momento da criação da instância, então adicione as demais: (111/TCP e UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
-
-- Configurar as seguintes regras:
+- A regra de entrada (22/TCP) já foi configurada no momento da criação da instância, então adicione as demais: (111/TCP e UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
 
     | Tipo              | Protocolo | Intervalo de portas |   Origem  | Descrição |
     |-------------------|:---------:|:-------------------:|:---------:|:---------:|
     | SSH               |    TCP    |          22         | 0.0.0.0/0 |    SSH    |
-    | TCP personalizado |    TCP    |          80         | 0.0.0.0/0 |    HTTP   |
-    | TCP personalizado |    TCP    |         443         | 0.0.0.0/0 |   HTTPS   |
+    | HTTP              |    TCP    |          80         | 0.0.0.0/0 |    HTTP   |
+    | HTTPS             |    TCP    |         443         | 0.0.0.0/0 |    HTTPS  |
     | TCP personalizado |    TCP    |         111         | 0.0.0.0/0 |    RPC    |
-    | TCP personalizado |    UDP    |         111         | 0.0.0.0/0 |    RPC    |
-    | TCP personalizado |    TCP    |         2049        | 0.0.0.0/0 |    NFS    |
-    | TCP personalizado |    UDP    |         2049        | 0.0.0.0/0 |    NFS    |
+    | UDP personalizado |    UDP    |         111         | 0.0.0.0/0 |    RPC    |
+    | NFS               |    TCP    |         2049        | 0.0.0.0/0 |    NFS    |
+    | UDP personalizado |    UDP    |         2049        | 0.0.0.0/0 |    NFS    |
 
 - Clicar em **Salvar regras**.
 
@@ -99,7 +92,6 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
 - Depois clique no botão **Criar sistema de arquivos**.   
 
     - #### Etapa 1 - Configurações do sistema de arquivos:
-
         - Adicione um nome para o EFS.
         - No campo **Virtual Private Cloud (VPC)** selecione a VPC que foi utilizada anteriormente na criação da instância.
         - Selecione a opção **personalizar**.
@@ -185,11 +177,11 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     ```
 - Após a conclusão da instalação, inicie o serviço do Apache com o comando:
     ```
-    sudo systemctl start httpd.service
+    sudo systemctl start httpd
     ```
 - Utilize o comando para habilitar o serviço do Apache para inicialização automática:
     ```
-    sudo systemctl enable httpd.service
+    sudo systemctl enable httpd
     ```
 - Verifique se o Apache está em execução utilizando o comando:
     ```
@@ -303,7 +295,7 @@ UDP, 2049/TCP/UDP, 80/TCP, 443/TCP).
     ```
 - Execute o comando que inicia o serviço do Apache:
     ```
-    sudo systemctl start httpd.service
+    sudo systemctl start httpd
     ```
  
 ### Automatizar a execução do script a cada 5 minutos:
