@@ -21,21 +21,22 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 ### Gerar chave pública para acesso ao ambiente:
 - Acesse o console AWS e entre no servico EC2.
 - No menu lateral esquerdo, na seção de **Rede e segurança**, selecione **Pares de chaves**.
-- Dentro de Pares de chaves, clique no botão **Criar par de chaves**.
-- Nomeie sua chave, selecione o tipo de par de chaves como RSA e o formato da chave privada como .pem e então clique no botão **Criar par de chaves"**.
-- Salvar o arquivo .pem em uma pasta segura.
+- Dentro de pares de chaves, clique no botão **Criar par de chaves**.
+- Nomeie sua chave, selecione o tipo de par de chaves como **RSA** e o formato da chave privada como **.pem** e então clique no botão **Criar par de chaves"**.
+- Salvar o arquivo **.pem** em uma pasta segura.
 
 ### Criar instância EC2:
 - Acesse o console AWS e entre no servico EC2.
 - No menu lateral esquerdo, na seção de **Instâncias**, selecione **Instâncias**.
 - Dentro da seção de instâncias clique no botão **Executar instância**.
 - Ao lado do campo de inserir nome, clique em **Adicionar mais tags**.
-- Crie e insira o valor para as chaves: **Name, Project e CostCenter**, selecionando **Instâncias**, **Volumes** como tipos de recursos.
+- Crie e insira as chaves: **Name, Project e CostCenter**.
+- Em tipos de recursos, selecione **Instâncias** e **Volumes**.
 - Selecione a AMI com sistema operacional Amazon Linux 2.
 - Selecione o tipo de instância como t3.small.
 - Selecione o par de chaves que foi criado anteriormente.
 - Selecione 16 GB de armazenamento gp2 (SSD).
-- Em configurações de rede, selecione Criar grupo de segurança, mantenha selecionado **Permitir tráfego SSH de** > **Qualquer lugar**.
+- Em configurações de rede, selecione **Criar grupo de segurança**, mantenha selecionado **Permitir tráfego SSH de** > **Qualquer lugar**.
 - Clicar em **Executar instância**.
 
 ### Gerar Elastic IP e anexar à instância EC2:
@@ -43,7 +44,7 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - No menu lateral esquerdo, na seção de **Rede e segurança**, selecione **IPs elásticos**.
 - Clique no botão **Alocar endereço IP elástico**.
 - Mantenha as configurações como padrão e clique no botão **Alocar**.
-- Depois de criado, selecione o IP alocado, clique no botão de **Ações** e então **Associar endereço IP elástico**. 
+- Depois de criado, selecione o **IP alocado**, clique no botão de **Ações** e então **Associar endereço IP elástico**. 
 - Selecione a instância EC2 que foi criada anteriormente e então clique em **Associar**.
 
 ### Criar e configurar Gateway da internet:
@@ -96,7 +97,7 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
         - No campo **Virtual Private Cloud (VPC)** selecione a VPC que foi utilizada anteriormente na criação da instância.
         - Selecione a opção **personalizar**.
         - Marque a opção **One zone** e selecione a zona de disponibilidade em que sua EC2 está criada.
-        - Em Gerenciamento de ciclo de vida, na opção **Transição para Achive** devemos mudar a configuração para **Nenhum**, pois o Archive não está disponível para sistemas de arquivos One Zone no momento dessa atividade.
+        - Em Gerenciamento de ciclo de vida, na opção **Transição para Archive** devemos mudar a configuração para **Nenhum**, pois o Archive não está disponível para sistemas de arquivos One Zone no momento dessa atividade.
         - Clique em **Próximo**.
 
     - #### Etapa 2 - Acesso à rede:
@@ -143,7 +144,7 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
         Faça as seguintes alterações:
         - **file_system_id** deve ser substituído pelo DNS do sistema de arquivos que você está montando.
         - **aws-region** deve ser substituído pela região da AWS que está configurada no sistema de arquivos, como us-east-1.
-        - **mount_point** deve ser substituído pelo ponto de montagem do sistema de arquivos, no meu caso /efs.
+        - **mount_point** deve ser substituído pelo ponto de montagem do sistema de arquivos, neste caso /efs.
         - Exemplo: ```fs-02d33e49911d03ca4.efs.us-east-1.amazonaws.com:/ /efs nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0```
 
 - Salve e feche o arquivo.
@@ -221,14 +222,14 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 - Se conseguir visulizar o conteúdo do arquivo **index.html** no seu navegador, significa que seu Apache está configurado corretamente.
 
 ### Criar um script que valide o status do Apache:
-- Vá até o diretório que foi criado dentro do seu filesystem, utilizando o comando:
+- Vá até o diretório que foi criado dentro do seu filesystem utilizando o comando:
     ```
     cd /efs/Seu_Nome
     ```
      - Substitua **Seu_Nome** pelo nome do diretório que você criou anteriormente com o seu nome.
      - Exemplo: ```cd /efs/JanainaACordisco``` 
 
-- Lá dentro crie um arquivo que tenha extensão **.sh**, com o comando:
+- Lá dentro crie um arquivo que tenha extensão **.sh** com o comando:
     ```
     sudo nano httpd_check.sh
     ```
@@ -284,7 +285,7 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
     ```
 
 ### Testar o script de validação:
-- Para fazer o teste temos que parar e iniciar o serviço Apache, executando o script criado entre um status e outro para que ambos status possam ser registrados:
+- Para fazer o teste temos que parar e iniciar o serviço Apache executando o script criado entre um status e outro para que ambos status possam ser registrados:
 - Execute o comando que interrompe o serviço do Apache:
     ```
     sudo systemctl stop httpd
@@ -299,7 +300,7 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
     ```
  
 ### Automatizar a execução do script a cada 5 minutos:
-- Digite o comando abaixo para editar as tarefas do cronjob:
+- Digite o comando abaixo para editar as tarefas do cron job:
     ```
     sudo crontab -e
     ```
