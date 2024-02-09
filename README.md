@@ -115,6 +115,10 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
 
 ### Montar sistema de arquivos do EFS:
 - Comece a configuração do NFS acessando sua máquina via SSH.
+- Atualize os pacotes do sistema com o comando:
+    ```
+    sudo yum update -y
+    ```
 - Instale o pacote necessário para o funcionamento do seu NFS com o comando:
     ```
     sudo yum install nfs-utils
@@ -168,10 +172,6 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
     - Exemplo: ```sudo mkdir /efs/JanainaACordisco```
     
 ### Configurar o servidor Apache:
-- Atualize os pacotes do sistema com o comando:
-    ```
-    sudo yum update -y
-    ```
 - Instale o Apache executando o comando:
     ```
     sudo yum install httpd -y
@@ -188,38 +188,10 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
     ```
     sudo service httpd status
     ```
-- Vá até o diretório padrão dos arquivos do Apache com o comando:
-    ```
-    cd /var/www/html
-    ```
-- Verifique se tem um arquivo **index.html** no diretório com o comando:
-    ```
-    ls
-    ```
-- Caso não tenha o arquivo **index.html** na pasta, você pode criá-lo usando o comando:
-    ```
-    sudo nano index.html
-    ```
-- Copie e cole o conteúdo abaixo para dentro do index.html e salve o arquivo.
-    ``` 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Apache</title>
-    </head>
-    <body>
-      <h1>Apache rodando com sucesso!</h1>
-    </body>
-    </html>
-    ```
-
 - Para verificar se o serviço Apache está rodando corretamente, você deverá colocar na barra de endereço do seu navegador o IP público atribuído à sua instância com o Elastic IP.
     - Exemplo:
         ``` 34.225.185.38```
-- Se conseguir visulizar o conteúdo do arquivo **index.html** no seu navegador, significa que seu Apache está configurado corretamente.
+- Se conseguir visulizar a **Test Page** do Apache no seu navegador, significa que seu Apache está configurado corretamente.
 
 ### Criar um script que valide o status do Apache:
 - Vá até o diretório que foi criado dentro do seu filesystem utilizando o comando:
@@ -300,7 +272,7 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
     ```
  
 ### Automatizar a execução do script a cada 5 minutos:
-- Digite o comando abaixo para editar as tarefas do cron job:
+- Digite o comando abaixo para editar as tarefas do cronjob:
     ```
     sudo crontab -e
     ```
@@ -323,7 +295,7 @@ Este repositório tem como objetivo documentar as etapas da atividade de AWS e L
     * * * * - Significa qualquer valor em hora, dia do mês, mês e dia da semana.
     >/dev/null 2>&1 - Desativa a notificação do cron nessa tarefa.
     ```
-- Você pode verificar se o script está realmente automatizado fazendo a leitura dos arquivos de saida que foram gerados.
+- Você pode verificar se o script está realmente automatizado fazendo a leitura dos arquivos de saída que foram gerados.
 
 ## Referências
 - [Amazon Elastic Compute Cloud - Manual do usuário para instâncias do Linux](https://docs.aws.amazon.com/pt_br/AWSEC2/latest/UserGuide/concepts.html)
